@@ -6,4 +6,4 @@ const AppointmentSchema = new Schema({
     email: String,
     appointment_date : Date
 });
-module.exports = Product = mongoose.model("Appointment", MessageSchema);
+module.exports = Product = mongoose.model("Appointment", AppointmentSchema);
