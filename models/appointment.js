@@ -8,7 +8,11 @@ const AppointmentSchema = new Schema({
   appointment_date: Date
 });
 
+
 module.exports = mongoose.model("Appointment", AppointmentSchema);
+
+
+
 
 
 
