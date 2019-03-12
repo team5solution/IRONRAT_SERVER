@@ -1,0 +1,1 @@
+//Post a message - /api/message, please note that the body of the request doesn't contain the date field and this field should be inserted to MongoDB automatically.  for the response, please refer to the client-side coding tasks.

@@ -38,9 +38,23 @@ io.on("connection", function(socket) {
 //setup router
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
+
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
 
+//Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
+const reviewRouter = require("./routers/reviewRouter");
+const messageRouter = require("./routers/messageRouter");
+const recruitmentRouter = require("./routers/recruitmentRouter.js");
+const appointmentRouter = require("./routers/appointmentRouter");
+
+app.use("/api/review", reviewRouter);
+app.use("/api/message", messageRouter);
+app.use("/api/recruitment", recruitmentRouter);
+app.use("/api/appointment", appointmentRouter);
+
+
+//Listen to the port 3000
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);

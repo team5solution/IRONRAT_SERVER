@@ -1,0 +1,1 @@
+//Post an appointment - /api/appointment (method: Post),  for the response, please refer to the client-side coding tasks.
