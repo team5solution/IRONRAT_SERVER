@@ -9,13 +9,7 @@ const ADMIN = require("./config/admin").role;
 global[uuid] = {};
 //const compression = require("compression");
 const app = express();
-<<<<<<< HEAD
 
-=======
-const uuid = require("./functions/uuid");
-const ADMIN = require("./config/admin").role;
-global[uuid] = {};
->>>>>>> master
 // use helmet to secure express
 app.use(helmet());
 //Enable cros to skip the Same origin policy, it will be changed when deploying
@@ -41,10 +35,6 @@ const server = require("http").createServer(app);
 io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
-<<<<<<< HEAD
-
-=======
->>>>>>> master
   socket.on("admin init", function(data, callback) {
     if (data in global[uuid]) {
       callback({ success: false, message: "Admin has logged in" });
@@ -64,7 +54,6 @@ io.on("connection", function(socket) {
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
 const messageRouter = require("./routers/messageRouter");
-<<<<<<< HEAD
 
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
@@ -77,14 +66,9 @@ const recruitmentRouter = require("./routers/recruitmentRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
 //app.use("/api/review", reviewRouter);
-//app.use("/api/message", messageRouter);
+
 //app.use("/api/recruitment", recruitmentRouter);
 //app.use("/api/appointment", appointmentRouter);
-=======
-app.use("/api", userRouter);
-app.use("/api/product", productRouter);
-app.use("/api/message", messageRouter);
->>>>>>> master
 
 //Listen to the port 3000
 const PORT = process.env.PORT || 3000;

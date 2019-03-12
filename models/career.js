@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 const Candidate = require("./candidate");
 const CareerSchema = new Schema({
   title: String,

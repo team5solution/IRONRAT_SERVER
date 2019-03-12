@@ -6,11 +6,7 @@ module.exports = function(email_address, subject, content, callback) {
     port: 465,
     secure: true, // use SSL
     auth: {
-<<<<<<< HEAD
       user: "ironratcustoms@zoho.com",
-=======
-      user: "ironratcustoms@zoho.com", // fill your gmail address
->>>>>>> master
       pass: "RmMUyEHtjz2HBV:"
     }
   });
