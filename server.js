@@ -45,7 +45,7 @@ app.use("/api/product", productRouter);
 //Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
 const reviewRouter = require("./routers/reviewRouter");
 const messageRouter = require("./routers/messageRouter");
-const recruitmentRouter = require("./routers/recruitmentRouter.js");
+const recruitmentRouter = require("./routers/recruitmentRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
 app.use("/api/review", reviewRouter);
