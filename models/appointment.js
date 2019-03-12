@@ -6,5 +6,8 @@ const AppointmentSchema = new Schema({
   email: String,
   appointment_date: Date
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 module.exports = mongoose.model("Appointment", AppointmentSchema);
