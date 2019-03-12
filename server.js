@@ -5,6 +5,9 @@ const cros = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const app = express();
+const uuid = require("./functions/uuid");
+const ADMIN = require("./config/admin").role;
+global[uuid] = {};
 // use helmet to secure express
 app.use(helmet());
 //Enable cros to skip the Same origin policy, it will be changed when deploying
@@ -30,6 +33,16 @@ const server = require("http").createServer(app);
 io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
+  socket.on("admin init", function(data, callback) {
+    if (data in global[uuid]) {
+      callback({ success: false, message: "Admin has logged in" });
+    } else {
+      //sotre the admin socket to global variable
+      socket.username = ADMIN;
+      global[uuid][socket.username] = socket;
+      callback({ success: true, message: "Admin initialization success" });
+    }
+  });
   socket.on("disconnect", function() {
     console.log("a user disconnected");
   });
@@ -38,8 +51,10 @@ io.on("connection", function(socket) {
 //setup router
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
+const messageRouter = require("./routers/messageRouter");
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/message", messageRouter);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
