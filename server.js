@@ -10,6 +10,12 @@ global[uuid] = {};
 //const compression = require("compression");
 const app = express();
 
+
+
+
+
+
+
 // use helmet to secure express
 app.use(helmet());
 //Enable cros to skip the Same origin policy, it will be changed when deploying
@@ -36,6 +42,9 @@ io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
 
+
+
+
   socket.on("admin init", function(data, callback) {
     if (data in global[uuid]) {
       callback({ success: false, message: "Admin has logged in" });
@@ -56,6 +65,7 @@ const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
 const messageRouter = require("./routers/messageRouter");
 
+
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/message", messageRouter);
@@ -70,6 +80,11 @@ const appointmentRouter = require("./routers/appointmentRouter");
 app.use("/api/message", messageRouter);
 //app.use("/api/recruitment", recruitmentRouter);
 //app.use("/api/appointment", appointmentRouter);
+
+
+
+
+
 
 //Listen to the port 3000
 const PORT = process.env.PORT || 3000;
