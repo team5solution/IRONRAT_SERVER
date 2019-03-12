@@ -5,17 +5,21 @@ const cros = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
+
 const uuid = require("./functions/uuid");
 const ADMIN = require("./config/admin").role;
 global[uuid] = {};
 
 const compression = require("compression");
 
+
+
 const app = express();
+
+
+
 // use helmet to secure express
 app.use(helmet());
-//compress all routes
-app.use(compression());
 //Enable cros to skip the Same origin policy, it will be changed when deploying
 app.use(cros());
 // log client request to console
@@ -39,7 +43,11 @@ const server = require("http").createServer(app);
 io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
+
    socket.on("admin init", function(data, callback) {
+
+
+
     if (data in global[uuid]) {
       callback({ success: false, message: "Admin has logged in" });
     } else {
@@ -58,8 +66,13 @@ io.on("connection", function(socket) {
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
 
+
+
+const messageRouter = require("./routers/messageRouter");
+
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/message", messageRouter);
 
 //Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
 const reviewRouter = require("./routers/reviewRouter");
