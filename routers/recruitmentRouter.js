@@ -1,19 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const Recruitment = require("../models/recruitment");
+//const Recruitment = require("../models/career");
 
 //test
-router.get('/', (req, res) => {
-  res.send('Recruitment router works!');
+router.get("/", (req, res) => {
+  res.send("Recruitment router works!");
 });
-
-
 
 //For client side:
 
 //1) Get all jobs - /api/job/all, for the response, please refer to the client-side coding tasks.
 //2) Apply a job - /api/job/apply (method: Post), this action will add a candidate object to the candidates list of the appropriate career. for the response, please refer to the client-side coding tasks.
-
 
 //For Back-end management side:
 
@@ -24,7 +21,6 @@ router.get('/', (req, res) => {
 //5) Delete a job - /api/job/:jobId (method: Delete, authorization:  isLoggedIn), this action allows the owner delete a job
 
 //6) Post a job - /api/job (method: Post, authorization:  isLoggedIn), this action allows the owner post a job
-
 
 // export router
 module.exports = router;
