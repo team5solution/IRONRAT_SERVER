@@ -1,3 +1,14 @@
+const express = require("express");
+const router = express.Router();
+const Recruitment = require("../models/recruitment");
+
+//test
+router.get('/', (req, res) => {
+  res.send('Recruitment router works!');
+});
+
+
+
 //For client side:
 
 //1) Get all jobs - /api/job/all, for the response, please refer to the client-side coding tasks.
@@ -13,3 +24,7 @@
 //5) Delete a job - /api/job/:jobId (method: Delete, authorization:  isLoggedIn), this action allows the owner delete a job
 
 //6) Post a job - /api/job (method: Post, authorization:  isLoggedIn), this action allows the owner post a job
+
+
+// export router
+module.exports = router;
