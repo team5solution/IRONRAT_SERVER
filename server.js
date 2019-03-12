@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -53,9 +54,6 @@ io.on("connection", function(socket) {
 //setup router
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
-<<<<<<< HEAD
-//Add reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
-=======
 const messageRouter = require("./routers/messageRouter");
 
 app.use("/api", userRouter);
@@ -63,26 +61,17 @@ app.use("/api/product", productRouter);
 app.use("/api/message", messageRouter);
 
 //Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
->>>>>>> c5fba3aff4b5c7092a0600c27c0d84a1b6971e91
+
 const reviewRouter = require("./routers/reviewRouter");
 
 const recruitmentRouter = require("./routers/recruitmentRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
-<<<<<<< HEAD
-app.use("/api", userRouter);
-app.use("/api/product", productRouter);
-//Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
-app.use("/api/review", reviewRouter);
-app.use("/api/message", messageRouter);
-app.use("/api/recruitment", recruitmentRouter);
-app.use("/api/appointment", appointmentRouter);
-=======
-//app.use("/api/review", reviewRouter);
 
+//app.use("/api/review", reviewRouter);
 //app.use("/api/recruitment", recruitmentRouter);
 //app.use("/api/appointment", appointmentRouter);
->>>>>>> c5fba3aff4b5c7092a0600c27c0d84a1b6971e91
+
 
 //Listen to the port 3000
 const PORT = process.env.PORT || 3000;
