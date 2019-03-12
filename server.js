@@ -4,19 +4,11 @@ const bodyParser = require("body-parser");
 const cros = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-
-
 const uuid = require("./functions/uuid");
 const ADMIN = require("./config/admin").role;
 global[uuid] = {};
-
-const compression = require("compression");
-
-
-
+//const compression = require("compression");
 const app = express();
-
-
 
 // use helmet to secure express
 app.use(helmet());
@@ -44,10 +36,7 @@ io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
 
-   socket.on("admin init", function(data, callback) {
-
-
-
+  socket.on("admin init", function(data, callback) {
     if (data in global[uuid]) {
       callback({ success: false, message: "Admin has logged in" });
     } else {
@@ -65,9 +54,6 @@ io.on("connection", function(socket) {
 //setup router
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
-
-
-
 const messageRouter = require("./routers/messageRouter");
 
 app.use("/api", userRouter);
@@ -76,7 +62,7 @@ app.use("/api/message", messageRouter);
 
 //Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
 const reviewRouter = require("./routers/reviewRouter");
-const messageRouter = require("./routers/messageRouter");
+
 const recruitmentRouter = require("./routers/recruitmentRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
@@ -84,7 +70,6 @@ const appointmentRouter = require("./routers/appointmentRouter");
 app.use("/api/message", messageRouter);
 //app.use("/api/recruitment", recruitmentRouter);
 //app.use("/api/appointment", appointmentRouter);
-
 
 //Listen to the port 3000
 const PORT = process.env.PORT || 3000;

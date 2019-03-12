@@ -1,21 +1,12 @@
 var nodemailer = require("nodemailer");
 
-
-
-
-
 module.exports = function(email_address, subject, content, callback) {
   var smtpTransporter = nodemailer.createTransport({
->>>>>>> change review.js
     host: "smtp.zoho.com",
     port: 465,
     secure: true, // use SSL
     auth: {
-
       user: "ironratcustoms@zoho.com",
-
-
-
       pass: "RmMUyEHtjz2HBV:"
     }
   });
