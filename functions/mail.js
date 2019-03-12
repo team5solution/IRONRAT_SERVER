@@ -15,7 +15,7 @@ module.exports = function(email_address, subject, content) {
     from: "Sixian Lin <ironratcustoms@zoho.com>",
     to: email_address,
     subject: subject,
-    html: content
+    text: content
   };
   return new Promise((resolve, reject) => {
     smtpTransporter.sendMail(mailOptions, (err, success) => {
