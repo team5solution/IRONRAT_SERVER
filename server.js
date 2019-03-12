@@ -48,10 +48,10 @@ const messageRouter = require("./routers/messageRouter");
 const recruitmentRouter = require("./routers/recruitmentRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
-app.use("/api/review", reviewRouter);
-app.use("/api/message", messageRouter);
-app.use("/api/recruitment", recruitmentRouter);
-app.use("/api/appointment", appointmentRouter);
+//app.use("/api/review", reviewRouter);
+//app.use("/api/message", messageRouter);
+//app.use("/api/recruitment", recruitmentRouter);
+//app.use("/api/appointment", appointmentRouter);
 
 
 //Listen to the port 3000
