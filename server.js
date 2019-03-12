@@ -59,7 +59,9 @@ const messageRouter = require("./routers/messageRouter");
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/message", messageRouter);
-
+//app.use("/api/review", reviewRouter);
+//app.use("/api/recruitment", recruitmentRouter);
+//app.use("/api/appointment", appointmentRouter);
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
