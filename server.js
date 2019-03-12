@@ -52,6 +52,10 @@ io.on("connection", function(socket) {
 const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
 const messageRouter = require("./routers/messageRouter");
+//Add and Use reviewRouter, messageRouter, recruitmentRouter, appointmentRouter
+//const reviewRouter = require("./routers/reviewRouter");
+//const recruitmentRouter = require("./routers/recruitmentRouter");
+//const appointmentRouter = require("./routers/appointmentRouter");
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/message", messageRouter);
