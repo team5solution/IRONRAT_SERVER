@@ -1,4 +1,3 @@
-
 var nodemailer = require("nodemailer");
 
 module.exports = function(email_address, subject, content, callback) {
@@ -26,4 +25,3 @@ module.exports = function(email_address, subject, content, callback) {
     }
   });
 };
-
