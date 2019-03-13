@@ -56,14 +56,14 @@ const productRouter = require("./routers/productRouter");
 const userRouter = require("./routers/userRouter");
 const messageRouter = require("./routers/messageRouter");
 const reviewRouter = require("./routers/reviewRouter");
-const recruitmentRouter = require("./routers/recruitmentRouter");
+const careerRouter = require("./routers/careerRouter");
 const appointmentRouter = require("./routers/appointmentRouter");
 
 app.use("/api", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/message", messageRouter);
 app.use("/api/review", reviewRouter);
-app.use("/api/recruitment", recruitmentRouter);
+app.use("/api/career", careerRouter);
 app.use("/api/appointment", appointmentRouter);
 
 //Listen to the port 3000
