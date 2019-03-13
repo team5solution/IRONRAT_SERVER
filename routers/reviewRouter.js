@@ -2,19 +2,13 @@ const express = require("express");
 const router = express.Router();
 const Review = require("../models/review");
 
-//test
-// router.get('/', (req, res) => {
-//   res.send('Review router works!');
-// });
-
-
-
 //1) Get all reviews API - /api/review/all, for the response, please refer to the client-side coding tasks.
-
 router.get("/all", (req, res) => {
   Review.find()
     .sort({ date: -1 })
-    .then(reviews => res.json(reviews));
+    .then(messages => {
+      res.status(200).json(messages);
+    });
 });
 
 //2) Post a review - /api/review, for the response, please refer to the client-side coding tasks.
@@ -28,26 +22,42 @@ router.post("/", (req, res) => {
 
   review
     .save()
-    .then(result => {
+    .then(data => {
       //console.log(result);
-      const newReview = {
+      const result = {
         createdReview: {
-          name: result.name,
-          rating: result.rating,
-          comment: result.comment
+          name: data.name,
+          rating: data.rating,
+          comment: data.comment
         }
       };
-      io.sockets.emit("new review", newReview);
-      res.status(201).json({
-        message: "submit a review successfully",
-        review
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
+      //if onwer is online and logged in, send the message via socket.io
+      if (ADMIN in global[uuid]) {
+        global[uuid][ADMIN].emit("new message", result, function () {
+          res
+            .status(200)
+            .json({ code: 0, message: "ubmit a review successfully", result });
+        });
+      } else {
+        const subject = "A Message From Client";
+        const content =
+          "Client Name: " +
+          result.name +
+          "\n" +
+          "Client Rating: " +
+          "\n" +
+          result.rating +
+          "\n" +
+          "Client Comment:" +
+          result.comment;
+        MailNode(SMSNumber, subject, content, function () {
+          res
+            .status(200)
+            .json({ code: 0, message: "A SMS was sent to the owner" });
+        });
+      }
+   
+  });
 });
 
 // export router
