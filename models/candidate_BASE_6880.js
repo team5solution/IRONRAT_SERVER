@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 const CandidateSchema = new Schema({
   name: String,
   email: String,
-  resume: [String],
- 
-  jobId: Schema.ObjectId
-
-  careerId: Schema.ObjectId
-
+  resume: [String]
 });
 module.exports = mongoose.model("Candidate", CandidateSchema);
