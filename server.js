@@ -1,13 +1,10 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cros = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
-const uuid = require("./functions/uuid");
-const ADMIN = require("./config/admin").role;
-global[uuid] = {};
+let admins = {};
 //const compression = require("compression");
 const app = express();
 
@@ -36,18 +33,29 @@ const server = require("http").createServer(app);
 io = require("socket.io").listen(server);
 io.on("connection", function(socket) {
   console.log("new user connected");
-  socket.on("admin init", function(data, callback) {
-    if (data in global[uuid]) {
-      callback({ success: false, message: "Admin has logged in" });
-    } else {
-      //sotre the admin socket to global variable
-      socket.username = ADMIN;
-      global[uuid][socket.username] = socket;
-      callback({ success: true, message: "Admin initialization success" });
-    }
+  socket.on("admin init", (data, callback) => {
+    //sotre the admin socket to global variable
+    const date = new Date();
+    const time = date.getTime();
+    console.log(time);
+    console.log("admin init");
+    socket.username = time;
+    admins[socket.username] = socket;
+    socket.join("admins");
+    callback({ result: "success" });
   });
   socket.on("disconnect", function() {
+    if (socket === admins[socket.username]) {
+      delete admins[socket.username];
+    }
     console.log("a user disconnected");
+    console.log(admins);
+  });
+  socket.on("logout", function() {
+    socket.leave("admins");
+    delete admins[socket.username];
+    console.log("a user disconnected");
+    console.log(admins);
   });
 });
 

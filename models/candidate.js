@@ -5,10 +5,8 @@ const CandidateSchema = new Schema({
   name: String,
   email: String,
   resume: [String],
- 
-  jobId: Schema.ObjectId
 
+  jobId: Schema.ObjectId,
   careerId: Schema.ObjectId
-
 });
 module.exports = mongoose.model("Candidate", CandidateSchema);
