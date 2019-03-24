@@ -45,27 +45,6 @@ router.post("/apply/:id", upload.array("resumes"), (req, res) => {
       });
     })
     .catch(err => console.log(err));
-  /* const candidate = new Candidate({
-    name: req.body.name,
-    email: req.body.email,
-    resume: filePaths,
-    careerId: req.body.careerId
-  });
-  candidate
-    .save()
-    .try(result => {
-      io.to("admins").emit("new candidate", result);
-      res.status(200).json({
-        code: 0,
-        message: "created candidate successfully"
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });*/
 });
 
 //For Back-end management side:
@@ -78,20 +57,6 @@ router.get("/list", (req, res) => {
     .catch(err => console.log(err));
 });
 
-//4) Update a career - /api/career/update (method: Post, authorization:  isLoggedIn), this action allows the owner update and save a career
-/*router.patch("update/:id", isLoggedIn, (req, res) => {
-  Career.update({ _id: req.params.id }, req.body)
-    .then(result => res.status(200).json({
-      message: "updated career successfully",
-      result
-    }))
-    .catch(err =>
-      res.status(500).json({
-        error: err
-      })
-    );
-});
-*/
 //5) Delete a career - /api/career/:careerId (method: Delete, authorization:  isLoggedIn), this action allows the owner delete a career
 router.delete("/:id", (req, res) => {
   let imagePaths = [];
