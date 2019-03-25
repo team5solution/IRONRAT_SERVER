@@ -40,7 +40,7 @@ router.post("/apply/:id", upload.array("resumes"), (req, res) => {
     .then(career => {
       career.candidates.push(candidate);
       career.save().then(result => {
-        console.log("result: ", result);
+        io.to("admins").emit("update career", result);
         res.status(200).json({ code: 0, message: "apply a job successfully" });
       });
     })
@@ -85,8 +85,8 @@ router.delete("/:id", (req, res) => {
           }
         });
       });
-      res.status(200).json({ code: 0, message: result.title + " was removed" });
       io.sockets.emit("delete career", result);
+      res.status(200).json({ code: 0, message: result.title + " was removed" });
     })
     .catch(err =>
       res.status(500).json({
