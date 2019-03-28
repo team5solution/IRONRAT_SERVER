@@ -7,6 +7,7 @@ const admin = require("../config/admin");
 const jwtToken = require("../functions/jwtToken");
 const MailNode = require("../functions/mail");
 const generateToken = require("../functions/rendomToken");
+const isLoggedIn = require("../functions/isLoggedin");
 /*admin login */
 router.post("/login", (req, res) => {
   const email = req.body.email;
@@ -36,41 +37,60 @@ router.post("/login", (req, res) => {
 });
 /* admin reset password */
 router.post("/resetPassword", (req, res) => {
-  const email = req.body.email;
+  const resetToken = req.body.token;
   const newPassword = req.body.password;
-  if (email !== admin.email) {
-    res.status(401).json({ code: 1, message: "password failed to change" });
-  } else {
-    User.findOne({ email: email }).then(user => {
-      hashPassword(newPassword).then(newHashPassword => {
-        user.password = newHashPassword;
-        user.save().then(result => {
-          res
-            .status(200)
-            .json({ code: 0, message: "change password successfully" });
+
+  User.findOne({ resetToken: resetToken })
+    .then(user => {
+      if (!user) {
+        res
+          .status(200)
+          .json({ code: 1, message: "User nof found or token is unavilable" });
+      } else {
+        hashPassword(newPassword).then(newHashPassword => {
+          user.password = newHashPassword;
+          user.token = null;
+          user.save().then(result => {
+            res
+              .status(200)
+              .json({ code: 0, message: "change password successfully" });
+          });
         });
-      });
+      }
+    })
+    .catch(error => {
+      console.log(error);
     });
-  }
 });
 /*admin frogot password */
 router.post("/forgotPassword", (req, res) => {
   const smsNumber = req.body.smsNumber;
-  if (smsNumber !== admin.SMSNumber) {
-    res.status(401).json({ code: 1, message: "cellphone number not match" });
+  if (smsNumber !== admin.phone) {
+    res
+      .status(200)
+      .json({ code: 1, message: "cellphone number does not match" });
   } else {
     const token = generateToken(6);
     const subject = "Verification Code";
     const content = `Reset password code: ${token}`;
 
-    MailNode(admin.SMSNumber, subject, content, function() {
-      res.status(200).json({ code: 0, token: token });
-    });
+    User.findOne({ email: admin.email })
+      .then(user => {
+        user.resetToken = token;
+        user.save().then(result => {
+          MailNode(admin.SMSNumber, subject, content, function() {
+            res.status(200).json({ code: 0, token: token });
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 });
 
 /* admin change password */
-router.post("/changePassword", (req, res) => {
+router.post("/changePassword", isLoggedIn, (req, res) => {
   const email = req.body.email;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
